@@ -13,6 +13,8 @@ const addNotes = (title, body) => {
   //   return note.title === title;
   // });
 
+  // debugger;
+
   const duplicateNote = loadedData.find(note => note.title === title);
 
   if (!duplicateNote) {
