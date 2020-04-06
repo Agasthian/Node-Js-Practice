@@ -7,15 +7,17 @@ if (!address) {
   console.log('Please enter a address');
 } else {
   geocoding(address, (error, response) => {
+    const { latitude, longitude, location } = response;
+
     if (error) {
       return console.log(error);
     }
 
-    forecast(response.latitude, response.longitude, (error, data) => {
+    forecast(latitude, longitude, (error, data) => {
       if (error) {
         return console.log(error);
       }
-      console.log(response.location);
+      console.log(location);
       console.log(data);
     });
   });
