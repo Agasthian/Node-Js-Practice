@@ -1,16 +1,64 @@
 const express = require('express');
 const path = require('path');
+const hbs = require('hbs');
 
 const app = express();
-const publicpathDir = path.join(__dirname, '../public');
-console.log(publicpathDir);
 
+// Define path  for express config
+const viewsPaths = path.join(__dirname, '../templates/views');
+const partialsPath = path.join(__dirname, '../templates/partials');
+const publicpathDir = path.join(__dirname, '../public');
+
+// Setup handlebar engine and  views lcoation
+app.set('view engine', 'hbs');
+app.set('views', viewsPaths);
+hbs.registerPartials(partialsPath);
+
+// Setup static directory to serve
 app.use(express.static(publicpathDir));
+
+app.get('', (req, res) => {
+  res.render('index', {
+    title: 'Weather',
+    name: 'Agasthian',
+  });
+});
+
+app.get('/about', (req, res) => {
+  res.render('about', {
+    title: 'About',
+    name: 'Agasthian',
+  });
+});
+
+app.get('/help', (req, res) => {
+  res.render('help', {
+    title: 'Help / FAQs',
+    name: 'Agasthian',
+    message: 'This is a help msg',
+  });
+});
+
+app.get('/help/*', (req, res) => {
+  res.render('404', {
+    title: '404',
+    name: 'Agasthian',
+    error: 'Help article not found',
+  });
+});
 
 app.get('/weather', (req, res) => {
   res.send({
     forecast: '37',
     loaction: 'Chennai',
+  });
+});
+
+app.get('*', (req, res) => {
+  res.render('404', {
+    title: '404',
+    name: 'Agasthian',
+    error: 'Page not found',
   });
 });
 
