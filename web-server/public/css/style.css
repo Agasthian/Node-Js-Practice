@@ -4,8 +4,14 @@ body {
   max-width: 650px;
   margin: 0 auto;
   padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+.main-content {
+  flex-grow: 1;
+}
 footer {
   color: grey;
   border-top: 1px solid #eee;
@@ -29,6 +35,18 @@ h1 {
   margin-bottom: 16px;
 }
 
-img {
+.portrait {
   width: 250px;
+}
+
+input {
+  border: 1px solid #cccccc;
+  padding: 8px;
+}
+button {
+  cursor: pointer;
+  padding: 8px 15px;
+  border: 1px solid #888888;
+  background-color: #888888;
+  color: #ffffff;
 }
