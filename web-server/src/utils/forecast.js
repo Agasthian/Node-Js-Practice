@@ -12,7 +12,7 @@ const forecast = (lat, long, callback) => {
     } else {
       callback(
         undefined,
-        `${body.weather[0].description}.  Its currently ${body.main.temp} degrees out. The humudity is ${body.main.humidity}%`
+        `${body.weather[0].description}.  Its currently ${body.main.temp} degrees out. The humudity is ${body.main.humidity}%. The Minimum temp is: ${body.main.temp_max} c & Low temp is :${body.main.temp_min} c`
       );
     }
   });

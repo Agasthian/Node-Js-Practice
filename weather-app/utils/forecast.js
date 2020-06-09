@@ -3,8 +3,8 @@ const request = require('request');
 const forecast = (lat, long, callback) => {
   const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=93316cc6461339ec677140363daa8d7a&units=metric`;
 
-  request({ url, json: true }, (error, response) => {
-    const { body } = response;
+  request({ url, json: true }, (error, { body }) => {
+    // const { body } = response;
     if (error) {
       callback('Cannot connect to weather services', undefined);
     } else if (body.message) {
@@ -19,3 +19,4 @@ const forecast = (lat, long, callback) => {
 };
 
 module.exports = forecast;
+1;

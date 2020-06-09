@@ -1,5 +1,5 @@
-const express = require('express');
 const path = require('path');
+const express = require('express');
 const hbs = require('hbs');
 const geocoding = require('./utils/geocoding');
 const forecast = require('./utils/forecast');
@@ -7,11 +7,11 @@ const forecast = require('./utils/forecast');
 const app = express();
 
 // Define path  for express config
+const publicpathDir = path.join(__dirname, '../public');
 const viewsPaths = path.join(__dirname, '../templates/views');
 const partialsPath = path.join(__dirname, '../templates/partials');
-const publicpathDir = path.join(__dirname, '../public');
 
-// Setup handlebar engine and  views lcoation
+// Setup handlebar engine and  views location
 app.set('view engine', 'hbs');
 app.set('views', viewsPaths);
 hbs.registerPartials(partialsPath);
@@ -37,7 +37,7 @@ app.get('/help', (req, res) => {
   res.render('help', {
     title: 'Help / FAQs',
     name: 'Agasthian',
-    message: 'This is a help msg',
+    message: 'FAQs , Read the questions once for commonly raised queries',
   });
 });
 
@@ -70,6 +70,7 @@ app.get('/weather', (req, res) => {
             error,
           });
         }
+
         res.send({
           forecast: data,
           location: location,
