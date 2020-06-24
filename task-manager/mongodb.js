@@ -1,65 +1,70 @@
-//CRUD -
+// CRUD Create Read Update Delete
 
-// const monogodb = require('mongodb');
-// const MongoClient = monogodb.MongoClient;
+//Import
+// const mongodb = require('mongodb');
+// const MongoClient = mongodb.MongoClient;
 
 const { MongoClient, ObjectID } = require('mongodb');
 
-//Connection url
-const url = 'mongodb://127.0.0.1:27017';
+//Connectipon URL
+const url = 'mongodb://localhost:27017';
 
-//Database Name
-const dbname = 'taskmanager';
+//DB name
+const dbName = 'task-manager';
 
-//connect method
-MongoClient.connect(url, (error, client) => {
+//id Generation
+// const id = new ObjectID();
+// console.log(id);
+
+//Connect using mongo Client
+MongoClient.connect(url, { useNewUrlParser: true }, (error, client) => {
   if (error) {
-    return console.log('Unnable to connect to database!');
+    console.log('Unnable to connect to DB');
   }
 
-  const db = client.db(dbname);
+  const db = client.db(dbName);
 
   //Single data insert
   // db.collection('users').insertOne(
   //   {
-  //     name: 'John doe',
-  //     age: 18,
+  //     name: 'Jane',
+  //     age: 10,
   //   },
   //   (error, result) => {
   //     if (error) {
-  //       return console.log('Cannot insert data into collection');
+  //       return console.log('Unable to insert data');
   //     }
+
   //     console.log(result.ops);
   //   }
   // );
 
-  //Insert multiple data
+  //Multiple data insert
   // db.collection('users').insertMany(
   //   [
-  //     {
-  //       name: 'Jimmy',
-  //       age: 48,
-  //     },
-  //     { name: 'Badsha', age: 31 },
+  //     { name: 'John', age: 13 },
+  //     { name: 'steve', age: 55 },
   //   ],
   //   (error, result) => {
   //     if (error) {
-  //       return console.log('Cannot insert data');
+  //       return console.log('Unable to insert data');
   //     }
-
   //     console.log(result.ops);
   //   }
   // );
 
+  //New Collection and multiple data insert
   // db.collection('tasks').insertMany(
   //   [
-  //     { description: 'Compelete Section 6', compeleted: true },
-  //     { description: 'Re do tthe whole exercise', compeleted: false },
-  //     { description: 'Arrange the meet up', compeleted: true },
+  //     { description: 'Wash Cloths', compeleted: false },
+  //     {
+  //       description: 'Workout',
+  //       compeleted: false,
+  //     },
   //   ],
   //   (error, result) => {
   //     if (error) {
-  //       return console.log('Cannot enter the tasks ');
+  //       return console.log('Unnable to insert multiple data ');
   //     }
   //     console.log(result.ops);
   //   }
@@ -85,94 +90,70 @@ MongoClient.connect(url, (error, client) => {
 
   //Fetch last task with the id
   // db.collection('tasks').findOne(
-  //   { _id: new ObjectID('5e9dd805ea46b8465c58f1f3') },
-  //   (error, task) => {
+  //   { _id: new ObjectID('5ee5e644706ad30ad41a7319') },
+  //   (error, data) => {
   //     if (error) {
-  //       return console.log('Cannot fetch the task');
+  //       return console.log('Unable to fetch task');
   //     }
-  //     console.log(task);
+  //     console.log(data);
   //   }
   // );
 
-  //Fetch all tasks that are not compeleted
+  //Find all
   // db.collection('tasks')
   //   .find({ compeleted: false })
-  //   .toArray((error, tasks) => {
-  //     if (error) {
-  //       return console.log('Cannot fetch the task');
-  //     }
-  //     console.log(tasks);
+  //   .toArray((error, task) => {
+  //     console.log(task);
   //   });
 
-  // Update One user with id
+  // Update data using Promises - Update one(Node API)
+  //Using promises instead of callback
   // db.collection('users')
   //   .updateOne(
-  //     { _id: new ObjectID('5e9d947d05d0423edca27a10') },
   //     {
-  //       $set: {
-  //         name: 'Ram',
-  //       },
+  //       _id: new ObjectID('5ee5d5ba6293a428d877e715'),
+  //     },
+  //     {
+  //       $set: { name: 'Agasthian' },
   //     }
   //   )
   //   .then((result) => {
-  //     console.log(result);
+  //     console.log('Success', result);
   //   })
   //   .catch((error) => {
   //     console.log(error);
   //   });
 
-  // db.collection('users')
-  //   .updateOne(
-  //     { _id: new ObjectID('5e9d947d05d0423edca27a10') },
-  //     {
-  //       $inc: {
-  //         age: 1,
-  //       },
-  //     }
-  //   )
-  //   .then((result) => {
-  //     console.log(result);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
-
-  //Update all the task records
+  //Update many data using promises - Update Many(Node API)
   // db.collection('tasks')
   //   .updateMany(
   //     { compeleted: false },
   //     {
-  //       $set: {
-  //         compeleted: true,
-  //       },
+  //       $set: { compeleted: true },
   //     }
   //   )
   //   .then((result) => {
-  //     console.log(result.modifiedCount);
+  //     console.log('Success', result);
   //   })
   //   .catch((error) => {
   //     console.log(error);
   //   });
 
-  //Delete many
+  // Delete Many data - with users of age 20
   // db.collection('users')
-  //   .deleteMany({
-  //     age: 31,
-  //   })
+  //   .deleteMany({ age: 55 })
   //   .then((result) => {
-  //     console.log(result);
+  //     console.log(result.deletedCount);
   //   })
   //   .catch((error) => {
   //     console.log(error);
   //   });
 
-  //Delete One
+  //Delete Single data Entry
   // db.collection('tasks')
-  //   .deleteOne({
-  //     description: 'Re do tthe whole exercise',
-  //   })
+  //   .deleteOne({ description: 'Workout' })
   //   .then((result) => {
-  //     console.log(result);
+  //     console.log(result.deletedCount);
   //   })
   //   .catch((error) => {
   //     console.log(error);
